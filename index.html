@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Калькулятор НДС — расчёт НДС онлайн | VAT Calculator</title>
+  <meta name="description" content="Быстрый и точный онлайн-калькулятор НДС. Рассчитывайте сумму с НДС и без НДС, выбирайте ставку 0/10/20/22%. Полезная инструкция: как рассчитать НДС и примеры для бухгалтерии." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://username.github.io/vat-calculator/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Калькулятор НДС — расчёт НДС онлайн" />
+  <meta property="og:description" content="Быстрый и точный онлайн-калькулятор НДС. Рассчитывайте сумму с НДС и без НДС, выбирайте ставку 0/10/20/22%." />
+  <meta property="og:url" content="https://username.github.io/vat-calculator/" />
+  <meta property="og:image" content="/og-image.png" />
+
+  <style>
+    :root{--accent:#0b66a3;--bg:#f6f8fb;--card:#ffffff;--muted:#6b7280}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#0f1724;margin:0}
+    header{background:linear-gradient(90deg,var(--accent),#0a4f83);color:#fff;padding:28px 20px}
+    .container{max-width:960px;margin:0 auto;padding:20px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600}
+    .hero{display:flex;gap:20px;align-items:center}
+    .hero h1{margin:0;font-size:28px}
+    .card{background:var(--card);border-radius:10px;padding:20px;box-shadow:0 6px 24px rgba(15,23,36,0.06)}
+    .flex{display:flex;gap:20px}
+    .col{flex:1}
+    label{display:block;margin-bottom:6px;font-weight:700}
+    input,select,button,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef7;font-size:15px}
+    button{background:var(--accent);color:#fff;border:none;cursor:pointer}
+    .result{margin-top:16px;padding:14px;border-radius:8px;background:#f0f9ff}
+    footer{padding:28px 0;color:var(--muted);font-size:14px}
+    .meta{font-size:13px;color:var(--muted)}
+    @media(max-width:760px){.hero{flex-direction:column}.flex{flex-direction:column}}
+
+    /* Placeholder ad-block styling */
+    .ad-placeholder{border:2px dashed #d6e6f6;padding:12px;border-radius:8px;text-align:center;color:#0a4f83;background:linear-gradient(180deg,#ffffff,#f7fbff)}
+    .ad-caption{font-size:13px;color:var(--muted);margin-top:6px}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Калькулятор НДС",
+    "url": "https://username.github.io/vat-calculator/",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://username.github.io/vat-calculator/?s={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div style="flex:1">
+          <a href="#top" style="font-size:18px">VAT Calculator</a>
+        </div>
+        <div>
+          <a href="#calculator">Калькулятор</a>
+          <a href="#howto" style="margin-left:12px">Как рассчитать НДС</a>
+          <a href="#about" style="margin-left:12px">О сервисе</a>
+          <a href="#contacts" style="margin-left:12px">Контакты</a>
+        </div>
+      </nav>
+      <div class="hero" style="margin-top:18px">
+        <div>
+          <h1>Калькулятор НДС — быстро и без ошибок</h1>
+          <p class="meta">Онлайн-инструмент для бухгалтера и предпринимателя. Рассчитайте НДС из любой суммы или добавьте НДС к сумме за пару секунд.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+
+    <!-- MAIN CARD -->
+    <section id="calculator" class="card" style="margin-top:-28px">
+      <div class="flex">
+        <div class="col">
+          <h2>Калькулятор НДС</h2>
+          <p class="meta">Введите сумму, выберите тип расчёта и ставку НДС.</p>
+
+          <div style="margin-top:12px">
+            <label for="amount">Сумма (руб.)</label>
+            <input id="amount" type="number" placeholder="Введите сумму" min="0" step="0.01">
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:12px">
+            <div style="flex:1">
+              <label for="vatType">Тип расчёта</label>
+              <select id="vatType">
+                <option value="include">Выделить НДС из суммы</option>
+                <option value="exclude">Начислить НДС на сумму</option>
+              </select>
+            </div>
+            <div style="width:140px">
+              <label for="vatRate">Ставка</label>
+              <select id="vatRate">
+                <option value="0">0%</option>
+                <option value="10">10%</option>
+                <option value="20" selected>20%</option>
+                <option value="22">22%</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:12px">
+            <button onclick="calculateVAT()">Рассчитать</button>
+            <button onclick="clearForm()" style="background:#eef6fb;color:var(--accent);border:1px solid #cfe9ff">Сбросить</button>
+          </div>
+
+          <div id="result" class="result" style="display:none"></div>
+
+        </div>
+
+        <aside style="width:320px">
+          <div class="ad-placeholder" id="yandex-ad-1">
+            <strong>Место для рекламы (Яндекс)</strong>
+            <div class="ad-caption">Вставьте код блока РСЯ сюда после одобрения</div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="card meta" style="padding:12px">
+            <strong>Полезно знать</strong>
+            <p class="meta" style="margin:8px 0 0">Калькулятор подходит для быстрых проверок и обучения. Для бухгалтерской отчётности используйте официальные проводки и справочники.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SEO ARTICLE -->
+    <section id="howto" class="card" style="margin-top:20px">
+      <h2>Как рассчитать НДС: подробная инструкция и примеры</h2>
+      <p class="meta">Полное руководство по расчету НДС для предпринимателей и бухгалтеров: формулы, примеры, частые ошибки и особенности ставок.</p>
+
+      <article style="line-height:1.6;font-size:15px;margin-top:14px;color:#0f1724">
+        <p>Налог на добавленную стоимость (НДС) — косвенный налог, который взимается при реализации товаров, работ и услуг. В России действуют разные ставки НДС (0%, 10%, 20%, а также 22% в отдельных случаях). Для корректного расчёта НДС важно понимать, применяется ли ставка к сумме с учётом налога или к сумме без налога.</p>
+
+        <h3>Базовые формулы</h3>
+        <p>Существует два основных сценария расчёта НДС:</p>
+        <ol>
+          <li><strong>Выделить НДС из суммы с НДС</strong> — когда у вас есть цена, включающая НДС, и вы хотите узнать её чистую стоимость и сумму НДС. Формула: <em>VAT = Amount × rate / (1 + rate)</em>.</li>
+          <li><strong>Начислить НДС на сумму без НДС</strong> — когда у вас есть цена без НДС и вы хотите получить итоговую цену с налогом. Формула: <em>Total = Amount × (1 + rate)</em>.</li>
+        </ol>
+
+        <h3>Примеры</h3>
+        <p><em>Пример 1:</em> У вас есть сумма 1200 ₽, в которой уже включён НДС 20%. Найдите сумму НДС и стоимость без НДС.</p>
+        <p>Решение: VAT = 1200 × 0.20 / 1.20 = 200 ₽; Сумма без НДС = 1000 ₽.</p>
+
+        <p><em>Пример 2:</em> Цена товара 1000 ₽ без НДС, ставка 20%. Итоговая цена: 1000 × 1.20 = 1200 ₽; Сумма НДС = 200 ₽.</p>
+
+        <h3>Частые ошибки и как их избегать</h3>
+        <ul>
+          <li>Не перепутать порядок действий: при выделении НДС обязательно делите на (1 + ставка), а при начислении — умножаете на (1 + ставка).</li>
+          <li>Ошибки округления: в бухгалтерии важно соблюдать правила округления — чаще всего до копеек (2 знака после запятой).</li>
+          <li>Неправильная ставка: для некоторых групп товаров и услуг применяются льготные ставки (0% или 10%). Проверьте классификацию товара/услуги и сопроводительные нормативы.</li>
+        </ul>
+
+        <h3>Советы для бизнеса</h3>
+        <p>Для малых предприятий автоматизация расчётов и хранение данных экономят время и уменьшают ошибки. Используйте шаблоны и проверенные сервисы учёта. Если вы планируете масштабировать продажи или работать с экспортом/импортом, заранее проконсультируйтесь со своим бухгалтером по вопросу применения нулевой ставки и документации для подтверждения операций.</p>
+
+        <h3>Оптимизация страниц для поисковых систем</h3>
+        <p>Чтобы страница с калькулятором появилась в поиске, важно:</p>
+        <ul>
+          <li>Иметь длинную полезную статью (как эта) с релевантными заголовками (h2/h3).</li>
+          <li>Добавить метатеги description и title (в шапке страницы).</li>
+          <li>Создать sitemap.xml и robots.txt и отправить сайт в Яндекс.Вебмастер и Google Search Console.</li>
+        </ul>
+
+        <p>Это руководство даёт основу — дальше важна регулярность, качество ссылок и пользовательский опыт.</p>
+
+      </article>
+
+      <div style="margin-top:14px" class="ad-placeholder" id="yandex-ad-2">
+        <strong>Место для рекламы (Яндекс)</strong>
+        <div class="ad-caption">Блок для горизонтальных баннеров или РСЯ</div>
+      </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="card" style="margin-top:20px">
+      <h2>О сервисе</h2>
+      <p class="meta">Простой и бесплатный калькулятор НДС для быстрого расчёта. Сервис не хранит персональные данные и не требует регистрации.</p>
+      <p>Автор: <strong>VAT Calculator</strong>. Этот инструмент предназначен для информационных целей и не заменяет консультацию профессионального бухгалтера.</p>
+    </section>
+
+    <!-- CONTACTS -->
+    <section id="contacts" class="card" style="margin-top:20px">
+      <h2>Контакты</h2>
+      <p class="meta">Есть вопрос или предложение? Свяжитесь с нами:</p>
+      <form onsubmit="event.preventDefault();alert('Спасибо! Сообщение отправлено (демо).');" style="display:grid;gap:8px">
+        <input placeholder="Ваше имя" required>
+        <input placeholder="Email или телефон" required>
+        <textarea placeholder="Сообщение" rows="4" required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </section>
+
+    <!-- PRIVACY (short) -->
+    <section id="privacy" class="card" style="margin-top:20px">
+      <h2>Политика конфиденциальности (краткая)</h2>
+      <p class="meta">Мы не собираем и не храним персональные данные пользователей на этом сайте. Для работы калькулятора данные вводятся в браузере и не отправляются на сервер. Для размещения рекламы может использоваться сторонний сервис, который имеет собственную политику конфиденциальности.</p>
+      <p>Полную версию политики можно расширить в файле <code>/privacy-policy.html</code> при необходимости.</p>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="card" style="padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-weight:700">VAT Calculator</div>
+        <div class="meta">© 2025 — Бесплатный инструмент для расчёта НДС</div>
+      </div>
+      <div class="meta">Сайт готов к размещению рекламы (пустые блоки под РСЯ)</div>
+    </div>
+  </footer>
+
+  <script>
+    function calculateVAT(){
+      const amount = parseFloat(document.getElementById('amount').value);
+      const vatRate = parseFloat(document.getElementById('vatRate').value)/100;
+      const vatType = document.getElementById('vatType').value;
+      const resultDiv = document.getElementById('result');
+      if(isNaN(amount) || amount<=0){alert('Введите корректную сумму');return}
+      let html='';
+      if(vatType==='include'){
+        const vat = amount*vatRate/(1+vatRate);
+        const without = amount - vat;
+        html = `<h3>Результат:</h3><p>Сумма с НДС: ${amount.toFixed(2)} ₽</p><p>Сумма без НДС: ${without.toFixed(2)} ₽</p><p><strong>Сумма НДС: ${vat.toFixed(2)} ₽</strong></p>`;
+      } else {
+        const vat = amount*vatRate;
+        const total = amount+vat;
+        html = `<h3>Результат:</h3><p>Сумма без НДС: ${amount.toFixed(2)} ₽</p><p>Сумма НДС: ${vat.toFixed(2)} ₽</p><p><strong>Сумма с НДС: ${total.toFixed(2)} ₽</strong></p>`;
+      }
+      resultDiv.innerHTML = html; resultDiv.style.display='block';
+    }
+    function clearForm(){document.getElementById('amount').value='';document.getElementById('result').style.display='none'}
+  </script>
+</body>
+</html>
